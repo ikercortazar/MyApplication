@@ -27,6 +27,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 public class MapsActivity extends FragmentActivity  implements OnMapReadyCallback {
     private double d1=0;
     private double d2=0;
@@ -59,8 +62,19 @@ public class MapsActivity extends FragmentActivity  implements OnMapReadyCallbac
         // Define a listener that responds to location updates
         LocationListener locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
+                Calendar c = new GregorianCalendar();  // This creates a Calendar instance with the current time
+
+                final int mHour = c.get(Calendar.HOUR_OF_DAY);
+                final int mMinute = c.get(Calendar.MINUTE);
+                final int mSecond = c.get(Calendar.SECOND);
+                final int mDay = c.get(Calendar.DAY_OF_MONTH);
+                final int mMonth = c.get(Calendar.MONTH);
+                final int mYear = c.get(Calendar.YEAR);
+
                 // Called when a new location is found by the network location provider.
+
                 if(d2!=0) {
+
                     d3=d1;
                     d4=d2;
 
@@ -74,9 +88,13 @@ public class MapsActivity extends FragmentActivity  implements OnMapReadyCallbac
                             .width(5)
                             .color(Color.RED));
                 }
-                mMap.addMarker(new MarkerOptions()
-                        .position(new LatLng(location.getLatitude(), location.getLongitude()))
-                        .title("Hello world"));
+                if(d4==0) {
+                    mMap.addMarker(new MarkerOptions()
+                                    .position(new LatLng(location.getLatitude(), location.getLongitude()))
+                                    .title(String.valueOf(mHour) + ":" + String.valueOf(mMinute) + ":" + String.valueOf(mSecond))
+                    );
+
+                }
 
 
             }
@@ -100,8 +118,8 @@ public class MapsActivity extends FragmentActivity  implements OnMapReadyCallbac
                 Manifest.permission.ACCESS_FINE_LOCATION);
 
         if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
-            //locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+            //locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
         }
 
 
@@ -122,8 +140,8 @@ public class MapsActivity extends FragmentActivity  implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-        mMap = googleMap;
 
+    mMap = googleMap;
 
 
         // Add a marker in Sydney and move the camera
