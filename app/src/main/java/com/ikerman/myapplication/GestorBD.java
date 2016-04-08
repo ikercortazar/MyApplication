@@ -55,7 +55,7 @@ public class GestorBD {
         }
     }
 
-    public Ruta leerPersona(String nombre) {
+    public Ruta leerRuta(int id) {
 
         Ruta p = null;
 
@@ -63,8 +63,8 @@ public class GestorBD {
 
             String tabla = "ruta";
             String[] columnas = new String[]{"id", "d1", "d2","hora","min","segundos","dia","mes","año"};
-            String where = "nombre = ?";
-            String[] argumentoswhere = new String[]{nombre};
+            String where = "id = ?";
+            String[] argumentoswhere = new String[]{String.valueOf(id)};
             String groupby = null;
             String having = null;
             String orderby = null;
@@ -75,22 +75,29 @@ public class GestorBD {
 
             if (c1.moveToFirst()) {
                 p = new Ruta();
-                //p.setNombre(c1.getString(1));
-                //p.setApellidos(c1.getString(2));
+                p.setId(c1.getInt(1));
+                p.setRutax(c1.getDouble[](2));
+                p.setRutay(c1.getDouble(3));
+                p.setHora(c1.getInt(4));
+                p.setMin(c1.getInt(5));
+                p.setSegundos(c1.getInt(6));
+                p.setDia(c1.getInt(7));
+                p.setMes(c1.getInt(8));
+                p.setAño(c1.getInt(9));
             }
         }
 
         return p;
     }
 
-    public List<Ruta> leerPersonas() {
+    public List<Ruta> leerRutas() {
 
         List<Ruta> l = new ArrayList<>();
 
         if (bd.isOpen()) {
 
             String tabla = "personas";
-            String[] columnas = new String[]{"id", "nombre", "apellidos"};
+            String[] columnas = new String[]{"id", "d1", "d2","hora","min","segundos","dia","mes","año"};
             String where = null; // "id = ?"
             String[] argumentoswhere = null; // = new String[] {"35"};
             String groupby = null;
@@ -116,7 +123,7 @@ public class GestorBD {
 
     private class BDHelper extends SQLiteOpenHelper {
 
-        private String tablaPersonas = "CREATE TABLE personas ( id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, nombre TEXT, apellidos TEXT );";
+        private String tablaRutas = "CREATE TABLE rutas ( id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, nombre TEXT, apellidos TEXT );";
 
         public BDHelper(Context context, String name, CursorFactory factory, int version) {
             super(context, name, factory, version);
@@ -128,22 +135,21 @@ public class GestorBD {
             if (!db.isReadOnly()) {
                 // Enable foreign key constraints
                 db.execSQL("PRAGMA foreign_keys=ON;");
-                db.execSQL(tablaPersonas);
+                db.execSQL(tablaRutas);
             }
 
         }
 
-        @Override
+        //@Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
             if (!db.isReadOnly()) {
-                db.execSQL("DROP TABLE IF EXISTS personas");
+                db.execSQL("DROP TABLE IF EXISTS Rutas");
 
                 // Enable foreign key constraints
                 db.execSQL("PRAGMA foreign_keys=ON;");
-                db.execSQL(tablaPersonas);
+                db.execSQL(tablaRutas);
             }
-
         }
 
     }

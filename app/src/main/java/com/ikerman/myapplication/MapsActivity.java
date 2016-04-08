@@ -35,6 +35,10 @@ public class MapsActivity extends FragmentActivity  implements OnMapReadyCallbac
     private double d2=0;
     private double d3=0;
     private double d4=0;
+    private double[] rutax;
+    private double[] rutay;
+    private int contx=0;
+    private int conty=0;
     private GoogleMap mMap;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -95,6 +99,10 @@ public class MapsActivity extends FragmentActivity  implements OnMapReadyCallbac
                     );
 
                 }
+                rutax[contx]=d1;
+                rutay[conty]=d2;
+                contx=contx+1;
+                conty=conty+1;
 
 
             }
