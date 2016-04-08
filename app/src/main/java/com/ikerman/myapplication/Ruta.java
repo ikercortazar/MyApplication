@@ -7,8 +7,8 @@ import com.google.android.gms.maps.model.LatLng;
  */
 public class Ruta {
     private int id;
-    private double[] rutax;
-    private double[] rutay;
+    private double d1;
+    private double d2;
     private int hora;
     private int min;
     private int segundos;
@@ -17,9 +17,7 @@ public class Ruta {
     private int año;
 
     public Ruta() {
-
-
-
+        new LatLng(getD1(), getD2());
     }
 
     public Ruta(String nombre, String apellidos) {
@@ -35,7 +33,21 @@ public class Ruta {
         this.id = id;
     }
 
+    public double getD1() {
+        return d1;
+    }
 
+    public void setD1(double d1) {
+        this.d1 = d1;
+    }
+
+    public double getD2() {
+        return d2;
+    }
+
+    public void setD2(double d2) {
+        this.d2 = d2;
+    }
 
     public int getHora() {
         return hora;
@@ -83,22 +95,5 @@ public class Ruta {
 
     public void setAño(int año) {
         this.año = año;
-    }
-
-
-    public double[] getRutax() {
-        return rutax;
-    }
-
-    public void setRutax(double[] rutax) {
-        this.rutax = rutax;
-    }
-
-    public double[] getRutay() {
-        return rutay;
-    }
-
-    public void setRutay(double[] rutay) {
-        this.rutay = rutay;
     }
 }
